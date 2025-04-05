@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mobile-friendly -->
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
+        #promoCode { font-size: 28px; font-weight: bold; color: #333; margin: 20px 0; background: #f0f0f0; padding: 10px; }
         button { padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
         button:hover { background-color: #45a049; }
-        #promoCode { font-size: 24px; color: #333; margin: 20px 0; }
+        p { font-size: 16px; }
     </style>
     <script>
         window.onload = function() {
@@ -19,15 +20,9 @@
             // Display promocode
             document.getElementById("promoCode").textContent = promoCode;
 
-            // One-click button to open form and attempt autofill
-            document.getElementById("applyButton").onclick = function() {
-                // Open form in new tab
+            // One-tap button to open form
+            document.getElementById("formButton").onclick = function() {
                 window.open(formUrl, "_blank");
-                // Try to inject script (may not work due to scope, but worth a shot)
-                setTimeout(() => {
-                    let promoField = document.querySelector('input[name="PromoCode"]'); // Replace with your selector
-                    if (promoField) promoField.value = promoCode;
-                }, 2000); // Delay for page load
             };
         };
     </script>
@@ -35,7 +30,7 @@
 <body>
     <h1>Your Promocode</h1>
     <p id="promoCode">Loading...</p>
-    <button id="applyButton">Apply Promocode with One Tap</button>
-    <p>Tap the button to open the form. If autofill fails, manually enter the code above.</p>
+    <button id="formButton">Go to Form</button>
+    <p>Tap the button to open the form, then enter the code above.</p>
 </body>
 </html>
