@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Form Loader</title>
+    <title>Promocode Loader</title>
     <script>
         window.onload = function() {
             let params = new URLSearchParams(window.location.search);
             let promoCode = params.get("code") || "DEFAULT";
-            let iframe = document.getElementById("formIframe");
-            iframe.onload = function() {
-                let promoField = iframe.contentDocument.querySelector('input[name="PromoCode"]'); // Your selector
-                if (promoField) promoField.value = promoCode;
-            };
+            let formUrl = "https://example.com/form"; // Replace with original form URL
+            let bookmarklet = `javascript:(function(){let p='${promoCode}';let f=document.querySelector('input[name=\"promocode\"]');if(f)f.value=p;})();`;
+            document.getElementById("link").href = bookmarklet;
+            document.getElementById("formLink").href = formUrl;
+            document.getElementById("formLink").textContent = "Go to Form and Click the Bookmarklet";
         };
     </script>
 </head>
 <body>
-    <iframe id="formIframe" src="https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index" width="100%" height="800px" frameborder="0"></iframe>
+    <h1>Promocode Autofill</h1>
+    <p>Step 1: <a id="formLink" href="#">Go to Form</a></p>
+    <p>Step 2: Click this bookmarklet on the form page: <a id="link" href="#">Apply Promocode</a></p>
 </body>
 </html>
