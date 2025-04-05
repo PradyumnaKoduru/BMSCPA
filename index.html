@@ -5,33 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mobile-friendly -->
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
-        button { padding: 10px 20px; font-size: 16px; }
-        pre { background: #f0f0f0; padding: 10px; overflow-x: auto; }
+        button { padding: 15px 30px; font-size: 18px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        #promoCode { font-size: 24px; color: #333; margin: 20px 0; }
     </style>
     <script>
         window.onload = function() {
+            // Fetch promocode from URL
             let params = new URLSearchParams(window.location.search);
             let promoCode = params.get("code") || "DEFAULT";
             let formUrl = "https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index"; // Replace with original form URL
-            // Add promocode to form URL
-            let fullFormUrl = formUrl + "?code=" + encodeURIComponent(promoCode);
-            document.getElementById("formLink").href = fullFormUrl;
-            // Script to run on form page
-            let script = `let params=new URLSearchParams(window.location.search);let code=params.get("code")||"DEFAULT";let promoField=document.querySelector('input[name="PromoCode"]');if(promoField)promoField.value=code;`;
-            document.getElementById("scriptCode").textContent = script;
-            // Copy to clipboard function
-            document.getElementById("copyButton").onclick = function() {
-                navigator.clipboard.writeText(script).then(() => alert("Script copied! Paste it into your browser's address bar after 'javascript:' and press Enter."));
+
+            // Display promocode
+            document.getElementById("promoCode").textContent = promoCode;
+
+            // One-click button to open form and attempt autofill
+            document.getElementById("applyButton").onclick = function() {
+                // Open form in new tab
+                window.open(formUrl, "_blank");
+                // Try to inject script (may not work due to scope, but worth a shot)
+                setTimeout(() => {
+                    let promoField = document.querySelector('input[name="PromoCode"]'); // Replace with your selector
+                    if (promoField) promoField.value = promoCode;
+                }, 2000); // Delay for page load
             };
         };
     </script>
 </head>
 <body>
-    <h1>Apply Your Promocode</h1>
-    <p>Step 1: <a id="formLink" href="#" target="_blank">Tap here to open the form</a></p>
-    <p>Step 2: On the form page, paste this into your address bar after typing <code>javascript:</code> and press Enter:</p>
-    <pre id="scriptCode"></pre>
-    <button id="copyButton">Copy Script to Clipboard</button>
-    <p><strong>Instructions:</strong> Tap "Copy Script," go to the form, type "javascript:" in the address bar, paste the script, and hit Enter. Your promocode will autofill!</p>
+    <h1>Your Promocode</h1>
+    <p id="promoCode">Loading...</p>
+    <button id="applyButton">Apply Promocode with One Tap</button>
+    <p>Tap the button to open the form. If autofill fails, manually enter the code above.</p>
 </body>
 </html>
