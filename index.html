@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Redirecting...</title>
+    <title>Form Loader</title>
     <script>
         window.onload = function() {
             let params = new URLSearchParams(window.location.search);
             let promoCode = params.get("code") || "DEFAULT";
-            let formUrl = "https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index"; // Your form URL
-            // Append promocode to the form URL
-            window.location.href = formUrl + "?PromoCode=" + encodeURIComponent(promoCode);
+            let iframe = document.getElementById("formIframe");
+            iframe.onload = function() {
+                let promoField = iframe.contentDocument.querySelector('input[name="PromoCode"]'); // Your selector
+                if (promoField) promoField.value = promoCode;
+            };
         };
     </script>
 </head>
 <body>
-    Redirecting...
+    <iframe id="formIframe" src="https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index" width="100%" height="800px" frameborder="0"></iframe>
 </body>
 </html>
