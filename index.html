@@ -6,8 +6,8 @@
         window.onload = function() {
             let params = new URLSearchParams(window.location.search);
             let promoCode = params.get("code") || "DEFAULT";
-            let formUrl = "https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index"; // Replace with original form URL
-            let bookmarklet = `javascript:(function(){let p='${promoCode}';let f=document.querySelector('input[name=\"PromoCode\"]');if(f)f.value=p;})();`;
+            let formUrl = "https://example.com/form"; // Replace with original form URL
+            let bookmarklet = `javascript:(function(){let p='${promoCode}';let f=document.querySelector('input[name=\"promocode\"]');if(f)f.value=p;})();`;
             document.getElementById("link").href = bookmarklet;
             document.getElementById("formLink").href = formUrl;
             document.getElementById("formLink").textContent = "Go to Form and Click the Bookmarklet";
