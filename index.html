@@ -6,11 +6,11 @@
         window.onload = function() {
             let params = new URLSearchParams(window.location.search);
             let promoCode = params.get("code") || "DEFAULT";
-            let formUrl = "https://example.com/form"; // Replace with original form URL
+            let formUrl = "https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index"; // Replace with original form URL
             // Update the form link with the promocode as a parameter
             document.getElementById("formLink").href = formUrl + "?code=" + encodeURIComponent(promoCode);
             // Display the bookmarklet code for users to copy
-            let bookmarklet = `javascript:(function(){let params=new URLSearchParams(window.location.search);let code=params.get("code")||"DEFAULT";let promoField=document.querySelector('input[name="promocode"]');if(promoField)promoField.value=code;})();`;
+            let bookmarklet = `javascript:(function(){let params=new URLSearchParams(window.location.search);let code=params.get("code")||"DEFAULT";let promoField=document.querySelector('input[name="PromoCode"]');if(promoField)promoField.value=code;})();`;
             document.getElementById("bookmarkletCode").textContent = bookmarklet;
         };
     </script>
