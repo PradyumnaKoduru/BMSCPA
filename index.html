@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <script>
+        window.onload = function() {
+            let params = new URLSearchParams(window.location.search);
+            let promoCode = params.get("code") || "DEFAULT";
+            let formUrl = "https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index"; // Replace with original form URL
+            window.location.href = formUrl;
+            setTimeout(() => {
+                let promoField = document.querySelector('input[name="PromoCode"]'); // Replace with your selector
+                if (promoField) promoField.value = promoCode;
+            }, 1000);
+        };
+    </script>
+</head>
+<body>
+    Redirecting to the form...
+</body>
+</html>
