@@ -2,27 +2,36 @@
 <html>
 <head>
     <title>Promocode Loader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mobile-friendly -->
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
+        button { padding: 10px 20px; font-size: 16px; }
+        pre { background: #f0f0f0; padding: 10px; overflow-x: auto; }
+    </style>
     <script>
         window.onload = function() {
             let params = new URLSearchParams(window.location.search);
             let promoCode = params.get("code") || "DEFAULT";
             let formUrl = "https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index"; // Replace with original form URL
-            // Update the form link with the promocode as a parameter
-            document.getElementById("formLink").href = formUrl + "?code=" + encodeURIComponent(promoCode);
-            // Display the bookmarklet code for users to copy
-            let bookmarklet = `javascript:(function(){let params=new URLSearchParams(window.location.search);let code=params.get("code")||"DEFAULT";let promoField=document.querySelector('input[name="PromoCode"]');if(promoField)promoField.value=code;})();`;
-            document.getElementById("bookmarkletCode").textContent = bookmarklet;
+            // Add promocode to form URL
+            let fullFormUrl = formUrl + "?code=" + encodeURIComponent(promoCode);
+            document.getElementById("formLink").href = fullFormUrl;
+            // Script to run on form page
+            let script = `let params=new URLSearchParams(window.location.search);let code=params.get("code")||"DEFAULT";let promoField=document.querySelector('input[name="PromoCode"]');if(promoField)promoField.value=code;`;
+            document.getElementById("scriptCode").textContent = script;
+            // Copy to clipboard function
+            document.getElementById("copyButton").onclick = function() {
+                navigator.clipboard.writeText(script).then(() => alert("Script copied! Paste it into your browser's address bar after 'javascript:' and press Enter."));
+            };
         };
     </script>
 </head>
 <body>
-    <h1>Promocode Autofill</h1>
-    <p>Step 1: <a id="formLink" href="#" target="_blank">Go to Form</a> (opens in new tab)</p>
-    <p>Step 2: On the form page, open your browser console (F12 → Console), paste this code, and press Enter:</p>
-    <pre id="bookmarkletCode"></pre>
-    <p>Or drag this to your bookmarks bar and click it on the form page: <a href="#" id="bookmarkletLink">Apply Promocode</a></p>
-    <script>
-        document.getElementById("bookmarkletLink").href = document.getElementById("bookmarkletCode").textContent;
-    </script>
+    <h1>Apply Your Promocode</h1>
+    <p>Step 1: <a id="formLink" href="#" target="_blank">Tap here to open the form</a></p>
+    <p>Step 2: On the form page, paste this into your address bar after typing <code>javascript:</code> and press Enter:</p>
+    <pre id="scriptCode"></pre>
+    <button id="copyButton">Copy Script to Clipboard</button>
+    <p><strong>Instructions:</strong> Tap "Copy Script," go to the form, type "javascript:" in the address bar, paste the script, and hit Enter. Your promocode will autofill!</p>
 </body>
 </html>
