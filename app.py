@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string
+"""from flask import Flask, request, render_template_string
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -63,4 +63,4 @@ def promocode_loader():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port)"""
