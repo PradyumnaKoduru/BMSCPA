@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 app = Flask(__name__)
 
 # Original form URL (replace with your actual URL)
-FORM_URL = "https://example.com/form"
+FORM_URL = "https://bmswellnest.com/BMS_Web_Live/CPTRegistration/Index"
 
 @app.route('/')
 def promocode_loader():
@@ -19,7 +19,7 @@ def promocode_loader():
         soup = BeautifulSoup(response.text, 'html.parser')
         
         # Find promocode input and set value
-        input_field = soup.find('input', {'name': 'promocode'})
+        input_field = soup.find('input', {'name': 'PromoCode'})
         if input_field:
             input_field['value'] = promo_code
         
@@ -27,7 +27,7 @@ def promocode_loader():
         script = soup.new_tag('script')
         script.string = f"""
             window.onload = function() {{
-                let promoField = document.querySelector('input[name="promocode"]');
+                let promoField = document.querySelector('input[name="PromoCode"]');
                 if (promoField) promoField.value = '{promo_code}';
             }};
         """
@@ -55,7 +55,7 @@ def promocode_loader():
             <p id="promoCode">{{ promo_code }}</p>
             <a href="{{ form_url }}?promocode={{ promo_code }}" target="_blank">Go to Form</a>
             <p>Tap to open the form. If the promocode doesn’t autofill, copy this script and paste it into the address bar:</p>
-            <pre>javascript:(function(){let promoField=document.querySelector('input[name="promocode"]');if(promoField)promoField.value='{{ promo_code }}';})();</pre>
+            <pre>javascript:(function(){let promoField=document.querySelector('input[name="PromoCode"]');if(promoField)promoField.value='{{ promo_code }}';})();</pre>
         </body>
         </html>
         '''
